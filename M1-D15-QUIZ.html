@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <!--
+        QUIZ GAME!
+
+        RULES:
+        / The player must guess correctly a certain amount of questions
+        / Each correct answer gives him one point
+        / Answers could be multiple or true/false
+        / At the end of the game, the user must know his/her total score
+
+        QUESTIONS:
+        / You can get them from this URL ( http://bit.ly/strive_QUIZZ ) or you can write your own
+        / Could be multiple of boolean (true / false)
+
+        HINTS:
+        / Keep a global variable score for the user score
+        / Keep a variable questionNumber for the question the user is answering
+        / When questionNumber is bigger then the available questions, present the score
+        / Start working with the questions saved in a variable (or you can use AJAX for fetching external questions if you already know how to do it!)
+        / Start with the easier version and THEN implement the EXTRAs
+        / Please debug everything / try it on the console to be sure of what to expect from your code
+
+        EXTRA:
+        / Show if the answer provided was the wrong one or correct it after clicking
+        / Present the questions one at a time instead of having all of them displayed together
+        / Let the user select difficulty and number of questions (you can get q/a from https://opentdb.com/api.php?amount=10&category=18&difficulty=easy modifying amount and difficulty)
+    
+        /* WHEN YOU ARE FINISHED
+          Commit and push the code to your personal GitHub repository; then post the link of your commit on the Homework section of today's Eduflow.
+        */
+    -->
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Quiz</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" href="main.css" />
+    </head>
+    <body>
+        <div class="quiz-card">
+            <div class="quiz-container">
+                <div class="quiz-card__header">
+                    <h1>Quiz Game</h1>
+                    <progress
+                        id="complete-bar"
+                        class="progress"
+                        max="100"
+                        value="0"
+                    ></progress>
+                    <p><span id="complete">0%</span> complete</p>
+                </div>
+                <h2 class="quiz-card__question title"></h2>
+                <div class="quiz-card__body">
+                    <div id="loader"></div>
+                    <div class="text-center" id="start-quiz-holder">
+                        <div class="form">
+                            <div>
+                                <label for="amount">Amount of questions: </label
+                                ><br /><span id="amount-label">10</span>
+                                <br />
+                                <input
+                                    type="range"
+                                    name="amount"
+                                    id="amount"
+                                    max="20"
+                                    min="1"
+                                    value="10"
+                                    class="slider"
+                                />
+                            </div>
+                            <div>
+                                <label for="difficulty">Difficulty</label>
+                                <br />
+                                <select name="difficulty" id="difficulty">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="start-quiz">Start Quiz</button>
+                    </div>
+                    <div class="true-false hidden">
+                        <div class="option">True</div>
+                        <div class="option">False</div>
+                    </div>
+                    <div class="multi hidden">
+                        <!-- <div class="option">a) Central Process Unit</div>
+                        <div class="option">b) Computer Personal Unit</div>
+                        <div class="option">c) Central Processing Unit</div>
+                        <div class="option">d) Central Processor Unit</div> -->
+                    </div>
+                </div>
+                <div class="quiz-card__footer">
+                    <div class="buttons">
+                        <button
+                            id="quiz-btn"
+                            class="btn"
+                            disabled
+                            id="reset-quiz"
+                        >
+                            Reset
+                        </button>
+                        <button id="next-btn" class="btn" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="score-modal">
+            <div class="score-modal__content">
+                <h2 class="score-modal__title">Your Score</h2>
+                <p class="score-modal__score" id="score">11/27 (50%)</p>
+                <button class="btn" id="close-modal">Close</button>
+            </div>
+        </div>
+
+        <script>
+            window.onload = function () {
+                // HINTS
+                // IF YOU ARE DISPLAYING ALL THE QUESTIONS AT ONCE:
+                // For each question, create a container for wrapping it; then create a radio button
+                // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
+                // with, as options, both the correct answer and the incorrect ones
+                // (you'll probably need to google how to get the value from a radio button in JS to evaluate the final score)
+                //
+                // IF YOU ARE DISPLAYING ONE QUESTION AT A TIME
+                // Display the first question with the text and the radio buttons
+                // when the user selects an answer, pick the next question from the array and replace the old one with it
+                // saving the user's choice in a variable
+            };
+
+            // How to calculate the result? You can do it in 2 ways:
+            // If you are presenting all the questions together, just take all the radio buttons and check if the selected answer === correct_answer
+            // If you are presenting one question at a time, just add one point or not to the user score if the selected answer === correct_answer
+        </script>
+        <script src="index.js"></script>
+    </body>
+</html>

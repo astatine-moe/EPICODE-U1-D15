@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html,
+body {
+    /* set fallback font */
+    font-family: "Ubuntu", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background: #000000;
+
+    color: white;
+
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+header {
+    text-align: center;
+}
+
+body {
+    cursor: default !important;
+    user-select: none;
+    user-drag: none;
+    display: flex;
+    height: 100vh;
+
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    margin: 0 0.5rem;
+}
+
+.title {
+    font-weight: normal;
+}
+
+.quiz-container {
+    white-space: normal;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.quiz-card {
+    display: flex;
+    background-color: #131417;
+    min-width: 300px;
+    max-width: 30rem;
+    width: 30rem;
+    min-height: 30rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quiz-card__header {
+    background-color: rgba(255, 255, 255, 0.025);
+    padding: 1rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    text-align: center;
+}
+
+.quiz-card__question {
+    text-align: center;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.quiz-card__body {
+    margin-top: 12px;
+    flex-grow: 1;
+}
+
+.quiz-card__body .option {
+    cursor: pointer;
+
+    background: rgba(255, 255, 255, 0.075);
+
+    border-radius: 10em;
+
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
+
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+        border 0.2s ease-in-out;
+}
+
+.quiz-card__body .option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+.quiz-card__body .option.disabled {
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.025);
+}
+.quiz-card__body .option.disabled:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+.quiz-card__body .option:first-child {
+    margin: 0 1rem 1rem 1rem;
+}
+.quiz-card__body .option.selected {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+.quiz-card__body .option.correct {
+    border: 1px solid #00ff00;
+}
+.quiz-card__body .option.correct:before {
+    content: "✔";
+    margin-right: 0.5rem;
+}
+.quiz-card__body .option.incorrect {
+    border: 1px solid #ff0000;
+}
+.quiz-card__body .option.incorrect:before {
+    content: "✖";
+    margin-right: 0.5rem;
+}
+
+.true-false {
+    display: flex;
+    justify-content: space-evenly;
+}
+.true-false .option {
+    width: 50%;
+}
+.true-false .option:first-child {
+    width: 50%;
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+.quiz-card__footer {
+    background: rgba(255, 255, 255, 0.025);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    align-self: flex-end;
+    text-align: center;
+}
+
+.quiz-card__footer .buttons {
+    margin: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quiz-card__header .progress {
+}
+progress {
+    margin: 0;
+    border-radius: 5rem;
+    overflow: hidden;
+    border: none;
+    color: rgb(160, 13, 160);
+}
+progress::-moz-progress-bar {
+    background: rgb(160, 13, 160);
+}
+progress::-webkit-progress-value {
+    background: rgb(160, 13, 160);
+}
+
+button {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background: rgb(160, 13, 160);
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+button:disabled {
+    background: rgb(52, 1, 52);
+    color: gray;
+    cursor: not-allowed;
+}
+
+.text-center {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.hidden {
+    display: none;
+}
+
+.form {
+    display: flex;
+    margin-bottom: 2em;
+}
+
+.form div {
+    flex-grow: 1;
+}
+
+#loader {
+    display: none;
+    border: 0.5em solid #f3f3f3;
+    border-top: 0.5em solid rgb(160, 13, 160);
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    animation: spin 0.4s linear infinite;
+
+    margin: 0 auto;
+
+    margin-bottom: 1em;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.score-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    display: none;
+}
+
+.score-modal__content {
+    background: #131417;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+
+    max-width: 40rem;
+    width: 30rem;
+}
+
+.good {
+    color: #28a745 !important;
+}
+.okay {
+    color: #ffc107 !important;
+}
+
+.bad {
+    color: #dc3545 !important;
+}
