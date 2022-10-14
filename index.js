@@ -1,5 +1,5 @@
 let score = 0,
-    amountOfQuestions = 10,
+    amountOfQuestions = 5,
     difficulty = "easy",
     answerSelected = false,
     userQuestions = [],
@@ -11,6 +11,7 @@ const questionTitle = document.querySelector(".quiz-card__question");
 const nextButton = document.querySelector("#next-btn");
 const modal = document.querySelector(".score-modal");
 const closeModal = document.querySelector("#close-modal");
+const resetButton = document.querySelector("#reset-quiz");
 
 const shuffle = (array) => {
     //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
@@ -48,6 +49,7 @@ const disabledOptions = () => {
 };
 
 const clickChoice = (e, question) => {
+    //when user clicks on an option
     if (!answerSelected) {
         disabledOptions();
         answerSelected = true;
@@ -109,24 +111,7 @@ const loadOptions = (question, trueFalse = false) => {
     }
 };
 
-/*
-    Question amount handler
-*/
-const amountRange = document.getElementById("amount"),
-    amountLabel = document.getElementById("amount-label");
-amountRange.addEventListener("input", function (e) {
-    amountOfQuestions = this.value;
-    amountLabel.innerText = amountOfQuestions;
-});
-
-/*
-    Difficulty handler
-*/
-const difficultySelect = document.getElementById("difficulty");
-difficultySelect.addEventListener("change", function (e) {
-    difficulty = this.value;
-});
-
+//Fetch quesstions using fetch api
 const fetchQuestions = async (amount, difficulty) => {
     const response = await fetch(
         `https://opentdb.com/api.php?amount=${amount}&category=18&difficulty=${difficulty}`
@@ -135,6 +120,7 @@ const fetchQuestions = async (amount, difficulty) => {
     return data.results;
 };
 
+//fade out function for loader
 const fadeOut = (element, time = 10) => {
     return new Promise((resolve, reject) => {
         // Get the opacity of the element
@@ -155,16 +141,47 @@ const fadeOut = (element, time = 10) => {
     });
 };
 
+const resetQuiz = () => {
+    //reset quiz
+    let hideEles = [".multi", ".true-false"];
+
+    hideEles.forEach((ele) => {
+        document.querySelector(ele).classList.add("hidden");
+    });
+    startQuizHolder.style.display = "block";
+    startQuizHolder.style.opacity = 1;
+
+    userQuestions = [];
+    questionNumber = 0;
+    questionTitle.innerHTML = "";
+    setProgress();
+};
+
+/*
+    Question amount handler
+*/
+const amountRange = document.getElementById("amount"),
+    amountLabel = document.getElementById("amount-label");
+amountRange.addEventListener("input", function (e) {
+    amountOfQuestions = this.value;
+    amountLabel.innerText = amountOfQuestions;
+});
+
+/*
+    Difficulty handler
+*/
+const difficultySelect = document.getElementById("difficulty");
+difficultySelect.addEventListener("change", function (e) {
+    difficulty = this.value;
+});
+
+//when the user clicks the next button
 nextButton.addEventListener("click", async () => {
     if (answerSelected) {
         answerSelected = false;
         nextButton.setAttribute("disabled", true);
         nextQuestion();
     } else return; //if no answer selected, do nothing
-});
-
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
 });
 
 const nextQuestion = async () => {
@@ -177,18 +194,7 @@ const nextQuestion = async () => {
         loadOptions(question, question.type == "boolean");
     } else {
         //end of quiz, show score in modal, and reset quiz
-        let hideEles = [".multi", ".true-false"];
-
-        hideEles.forEach((ele) => {
-            document.querySelector(ele).classList.add("hidden");
-        });
-        startQuizHolder.style.display = "block";
-        startQuizHolder.style.opacity = 1;
-
-        userQuestions = [];
-        questionNumber = 0;
-        questionTitle.innerHTML = "";
-        setProgress();
+        resetQuiz();
 
         const percent = (score / amountOfQuestions) * 100;
 
@@ -198,7 +204,6 @@ const nextQuestion = async () => {
         )}%)`;
 
         const scoreContainer = document.querySelector("#score");
-        console.log(percent);
 
         scoreContainer.classList.remove("good", "bad", "okay");
         if (percent >= 70) {
@@ -240,3 +245,10 @@ startButton.addEventListener("click", async () => {
         nextQuestion();
     });
 });
+
+//modal handler
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+resetButton.addEventListener("click", resetQuiz);
